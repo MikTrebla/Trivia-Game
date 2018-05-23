@@ -1,0 +1,64 @@
+body {
+    /* background : url('../images/trivia.jpg'); */
+    background-size : 1366px 768px;
+    background-repeat: no-repeat;
+    font-family: 'Courier New', Courier, monospace
+}
+#main-container {
+    /* background-color : yellow; */
+    width : 100%
+}
+
+
+#countdown-timer {
+    text-align: center;
+    font-size : 40px;
+    color : red;
+    font-weight: bold;
+}
+
+#rainbow {
+    font-size : 75px;
+    text-align: center;
+    /* Chrome, Safari, Opera */
+  -webkit-animation: rainbow 3s infinite; 
+  
+  /* Internet Explorer */
+  -ms-animation: rainbow 3s infinite;
+  
+  /* Standar Syntax */
+  animation: rainbow 3s infinite; 
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes rainbow{
+	20%{color: rgb(221, 180, 165);}
+	40%{color: rgb(170, 75, 32);}
+	60%{color: palegreen;}
+	80%{color: paleturquoise;}
+	100%{color: rgb(18, 214, 198);}	
+}
+/* Internet Explorer */
+@-ms-keyframes rainbow{
+	20%{color: rgb(221, 180, 165);}
+	40%{color: rgb(170, 75, 32);}
+	60%{color: palegreen;}
+	80%{color: paleturquoise;}
+	100%{color: rgb(18, 214, 198);}	
+}
+
+/* Standar Syntax */
+@keyframes rainbow{
+	5%{color: rgb(221, 180, 165);}
+	35%{color: rgb(170, 75, 32);}
+	65%{color: palegreen;}
+	85%{color: paleturquoise;}
+	0%{color: rgb(18, 214, 198);}	
+} 
+
+.question-box {
+    text-align: center
+}
+.answer-box {
+    text-align: center;
+}

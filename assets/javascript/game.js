@@ -35,43 +35,36 @@ var incorrect = 0;
 var currentQuestion = 0; //track index of array Q's & A's
 var timer = 10;
 // var ranOutOfTime = false;
+var answeredCorrectly = false;
 
 
 $(document).ready(function() {
-
     $('.start-button').on('click', function () {
         displayQuestion(); // displays first question when clicked
         displayAnswerOptions(); //displays first set of answer options
         $('.start-button').remove();//removes start button after being clicked
         displayTimer();
         run(); //runs timer as soon as start is clicked
-
     });
-
 
     $('.button').on('click', function () {
         var buttonClicked = $(this).val(); 
             if (currentQuestion >= questionList.length) {
                 $('#countdown-timer').html();
                 $('#quiz').empty();
-                $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
                 //add restart button
             } else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
-                // stop();
-                correct++;
+                correct++
                 currentQuestion++
                 nextQuestionAnswer();
+                alert ('You got it right!');
             } else if (buttonClicked !== questionList[currentQuestion].correctAnswer){
-                // stop();
-                //-------->displayCorrectAnswer();<-- need to fix this
-                $('#countdown-timer').empty();
-                incorrect++;
-                currentQuestion++;
+                incorrect++ 
+                alert('Correct answer was ' + questionList[currentQuestion].correctAnswer)
+                currentQuestion++
                 nextQuestionAnswer();
                 //add displayCorrectAnswer() with timer to stop and go to nextQuestionAnswer();
             }
-    console.log($(this).val())
-    console.log('you got this many correct:' + correct)
     });
 
     function displayQuestion() {
@@ -80,13 +73,26 @@ $(document).ready(function() {
     };
 
     function displayCongratulations() {
-        //need timer for congratulation message
+        timer = 5;
+        timer --;
+        correct++;
+        currentQuestion++
+        $('#question').html('<h1> Congratulations, you got it right! </h1>')
+        if (timer = 0){
+            stop();
+            nextQuestionAnswer();
+        }
     };
 
     function displayCorrectAnswer() {
         //need timer for incorrectanswer message
+        timer = 5;
+        timer --;
         $('#question').html('The correct answer was ' + questionList[currentQuestion].correctAnswer.toUpperCase() + '.')
-        run2();
+        if (timer = 0){
+            stop();
+            nextQuestionAnswer();
+        }
     };
 
     function displayAnswerOptions() {
@@ -98,7 +104,7 @@ $(document).ready(function() {
     function nextQuestionAnswer() {
 
         if (currentQuestion >= questionList.length){
-            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');
+            $('#question').html('You answered ' + correct + ' questions correctly  and '  + incorrect + ' incorrectly.');
             $('#quiz').empty();
             $('#countdown-timer').empty();
             stop(); 
@@ -110,32 +116,37 @@ $(document).ready(function() {
             $('#option1').html('<h3>A.' + questionList[currentQuestion].answers.a + '</h3>');
             $('#option2').html('<h3>B.' + questionList[currentQuestion].answers.b + '</h3>');
             $('#option3').html('<h3>C.' + questionList[currentQuestion].answers.c + '</h3>');
+            
         }
+        stop();
+        run();
     };        
-    
     
     function displayTimer() {
         $('#countdown-timer').html(10);
     }    
 
     function run() { 
-        displayTimer();
-        timer = 10;
-        intervalId = setInterval(countdown, 1000);
-    };
+        if (currentQuestion >= questionList.length) {
+            $('#countdown-timer').empty();
+        } else {
+            displayTimer();
+            timer = 10;
+            intervalId = setInterval(countdown, 1000);
+        }
+    };    
 
     function countdown() {
         timer--;
         console.log(timer)
         $('#countdown-timer').html(timer);
         if (timer <= 0) { 
+            incorrect++;
             stop();
             currentQuestion++;
             nextQuestionAnswer(); 
-            run();
         }      
     };
-
 
     function stop() { //stop function for when timer === 0
         clearInterval(intervalId)
@@ -145,7 +156,12 @@ $(document).ready(function() {
         clearTimeout(intervalId)
     }
     function restart() {
-
+        currentQuestion = 0;
+        correct = 0;
+        incorrect = 0;
+        timer = 10;
+        displayQuestion();
+        displayAnswerOptions();
     };
 });
 

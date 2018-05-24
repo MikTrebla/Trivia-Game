@@ -63,7 +63,7 @@ body {
     text-align: center;
 }
 
-button{
+.button{
     text-decoration: none;
     /* background-color: yellowgreen; */
     text-align: center;
@@ -72,4 +72,8 @@ button{
     padding : none;
     border : none 0;
     outline:none;
+}
+
+.start {
+    text-align: center;
 }

@@ -45,24 +45,40 @@ var timer = 10;
 
 $(document).ready(function() {
 
+    $('.start-button').on('click', function () {
+        displayQuestion(); // displays first question when clicked
+        displayAnswerOptions(); //displays first set of answer options
+        $('.start-button').remove();//removes start button after being clicked
+        displayTimer();
+        run(); //runs timer as soon as start is clicked
+    });
+
 
     $('.button').on('click', function () {
         currentQuestion++;
         var buttonClicked = $(this).val(); 
-        if (currentQuestion >= questionList.length) {
-            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions out of max possible correct
-            $('#quiz').empty();
-            $('#countdown-timer').empty();
-            stop(); //stop timer
-        }else if (buttonClicked === questionList.answers) {
-            correct++;
-            nextQuestionAnswer();
-        } else {
-            incorrect++;
-            nextQuestionAnswer();
+        for (var i = 0; i < questionList.length; i++) {
+            if (currentQuestion >= questionList.length) {
+                $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
+                $('#quiz').empty();
+                $('#countdown-timer').empty();
+                stop(); //stop timer
+                //add restart button
+            }else if ($(this).val() === questionList[i].correctAnswer) {
+                correct++;
+                nextQuestionAnswer();
+            } else if ($(this).val() !== questionList[i].correctAnswer){
+                incorrect++;
+                nextQuestionAnswer();
+            }
         }
-        console.log($(this))
-        });
+    console.log()
+    console.log('you got this many correct:' + correct)
+        // console.log($(this))
+    });
+    function displayTimer() {
+        $('#countdown-timer').html(10);
+    }    
 
     function displayQuestion() {
         $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>');
@@ -90,16 +106,6 @@ $(document).ready(function() {
         }
         
     };
-    
-    // function allQuestionsAnswered() {
-    //         $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions out of max possible correct
-    //         $('#quiz').empty();
-    //         $('#countdown-timer').empty();
-    //         stop(); //stop timer
-        
-    // };
-
-   
 
     function run() { // this will countdown my number every 1s
         intervalId = setInterval(countdown, 1000);
@@ -115,14 +121,14 @@ $(document).ready(function() {
         run();
         }      
     };
-    run(); //runs timer as soon as page loads up
 
     function stop() { //stop function for when timer === 0
         clearInterval(intervalId)
     };
 
-displayQuestion(); // displays first question when page loads
-displayAnswerOptions(); //displays first set of answer options
+    // function restart() {
+
+    // }
 });
 
 

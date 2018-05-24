@@ -25,6 +25,69 @@ var questionList = [
             c: '305'
         },
         correctAnswer : 'b'
+    },
+    {
+        questions : 'What part of the cinnamon tree becomes the spice?',
+        answers : {
+            a: 'The Leaves',
+            b: 'The Bark',
+            c: 'The Roots'
+        },
+        correctAnswer : 'b'
+    },
+    {
+        questions : 'What does a coleopterist study?',
+        answers : {
+            a: 'Birds',
+            b: 'Subterranean Termites',
+            c: 'Beetles'
+        },
+        correctAnswer : 'c'
+    },
+    {
+        questions : 'The world’s fastest growing plant is a species of what?',
+        answers : {
+            a:'Bamboo',
+            b: 'Dandelion',
+            c:'Grass'
+        },
+        correctAnswer : 'a'
+    },
+    {
+        questions : 'What is the common term for a list of things a person would like to do before they die?',
+        answers : {
+            a: 'To-Do-List',
+            b: 'Bucket List',
+            c: 'Death List'
+        },
+        correctAnswer : 'b'
+    },
+    {
+        questions : 'Stratus, Cirrus and Cumulus are types of what?',
+        answers : {
+            a: 'Clouds',
+            b: 'Planes',
+            c: 'Planetary Structures'
+        },
+        correctAnswer : 'a'
+    },
+    {
+        questions : 'Jamón ibérico is a type of cured ham that is traditionally produced by which two neighboring countries?',
+        answers : {
+            a:'Spain & Portugal',
+            b:'Venezuela',
+            c:'Brazil'
+        },
+        correctAnswer : 'a'
+    },
+    {
+        questions : 'Dendrophobia is the fear of what?',
+        answers : {
+            a: 'Dandruff',
+            b: 'Trees',
+            c: 'Dendrites'
+        },
+        correctAnswer : 'b' 
     }
 ];
 console.log(questionList[0].correctAnswer)

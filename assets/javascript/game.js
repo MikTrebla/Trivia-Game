@@ -52,18 +52,17 @@ $(document).ready(function() {
     $('.button').on('click', function () {
         var buttonClicked = $(this).val(); 
             if (currentQuestion >= questionList.length) {
-                $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
+                $('#countdown-timer').html();
                 $('#quiz').empty();
-                $('#countdown-timer').empty();
-                stop(); //stop timer
+                $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
                 //add restart button
             } else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
-                stop();
+                // stop();
                 correct++;
                 currentQuestion++
                 nextQuestionAnswer();
             } else if (buttonClicked !== questionList[currentQuestion].correctAnswer){
-                stop();
+                // stop();
                 //-------->displayCorrectAnswer();<-- need to fix this
                 $('#countdown-timer').empty();
                 incorrect++;
@@ -110,9 +109,10 @@ $(document).ready(function() {
             $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );
             $('#option1').html('<h3>A.' + questionList[currentQuestion].answers.a + '</h3>');
             $('#option2').html('<h3>B.' + questionList[currentQuestion].answers.b + '</h3>');
-            $('#option3').html('<h3>C.' + questionList[currentQuestion].answers.c + '</h3>'); 
+            $('#option3').html('<h3>C.' + questionList[currentQuestion].answers.c + '</h3>');
         }
     };        
+    
     
     function displayTimer() {
         $('#countdown-timer').html(10);
@@ -124,13 +124,9 @@ $(document).ready(function() {
         intervalId = setInterval(countdown, 1000);
     };
 
-    function run2() {
-        timer = 5;
-        intervalId = setInterval(countdown2, 1000);
-    };
-
     function countdown() {
         timer--;
+        console.log(timer)
         $('#countdown-timer').html(timer);
         if (timer <= 0) { 
             stop();
@@ -140,24 +136,14 @@ $(document).ready(function() {
         }      
     };
 
-    function countdown2() {
-        timer--;
-        if (timer <=0) {
-            stop();
-            currentQuestion++;
-            nextQuestionAnswer();
-            run();
-        }
-    }
 
     function stop() { //stop function for when timer === 0
         clearInterval(intervalId)
     };
 
-    function stop2() {
-        clearInterval(intervalId);
-    };
-
+    function clearTimer() {
+        clearTimeout(intervalId)
+    }
     function restart() {
 
     };

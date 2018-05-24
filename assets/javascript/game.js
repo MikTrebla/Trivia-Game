@@ -45,6 +45,7 @@ $(document).ready(function() {
         $('.start-button').remove();//removes start button after being clicked
         displayTimer();
         run(); //runs timer as soon as start is clicked
+
     });
 
 
@@ -57,13 +58,18 @@ $(document).ready(function() {
                 stop(); //stop timer
                 //add restart button
             } else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
+                stop();
                 correct++;
                 currentQuestion++
                 nextQuestionAnswer();
             } else if (buttonClicked !== questionList[currentQuestion].correctAnswer){
+                stop();
+                //-------->displayCorrectAnswer();<-- need to fix this
+                $('#countdown-timer').empty();
                 incorrect++;
-                currentQuestion++
-                nextQuestionAnswer();   
+                currentQuestion++;
+                nextQuestionAnswer();
+                //add displayCorrectAnswer() with timer to stop and go to nextQuestionAnswer();
             }
     console.log($(this).val())
     console.log('you got this many correct:' + correct)
@@ -74,28 +80,37 @@ $(document).ready(function() {
         // console.log(questionList[currentQuestion].questions)
     };
 
+    function displayCongratulations() {
+        //need timer for congratulation message
+    };
+
+    function displayCorrectAnswer() {
+        //need timer for incorrectanswer message
+        $('#question').html('The correct answer was ' + questionList[currentQuestion].correctAnswer.toUpperCase() + '.')
+        run2();
+    };
+
     function displayAnswerOptions() {
-        $('#option1').html('<h3>' +questionList[currentQuestion].answers.a + '</h3>');
-        $('#option2').html('<h3>' +questionList[currentQuestion].answers.b + '</h3>');
-        $('#option3').html('<h3>' +questionList[currentQuestion].answers.c + '</h3>');
-        // console.log(questionList[currentQuestion].answers)
+        $('#option1').html('<h3>A. ' +questionList[currentQuestion].answers.a + '</h3>');
+        $('#option2').html('<h3>B. ' +questionList[currentQuestion].answers.b + '</h3>');
+        $('#option3').html('<h3>C. ' +questionList[currentQuestion].answers.c + '</h3>');
     };
 
     function nextQuestionAnswer() {
 
         if (currentQuestion >= questionList.length){
-            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
+            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');
             $('#quiz').empty();
             $('#countdown-timer').empty();
-            stop(); //stop timer
+            stop(); 
             //add restart button 
         } else if (currentQuestion <= questionList.length) {
             timer = 10;
             $('#countdown-timer').html(timer);
             $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );
-            $('#option1').html('<h3>' + questionList[currentQuestion].answers.a + '</h3>');
-            $('#option2').html('<h3>' + questionList[currentQuestion].answers.b + '</h3>');
-            $('#option3').html('<h3>' + questionList[currentQuestion].answers.c + '</h3>'); 
+            $('#option1').html('<h3>A.' + questionList[currentQuestion].answers.a + '</h3>');
+            $('#option2').html('<h3>B.' + questionList[currentQuestion].answers.b + '</h3>');
+            $('#option3').html('<h3>C.' + questionList[currentQuestion].answers.c + '</h3>'); 
         }
     };        
     
@@ -103,13 +118,18 @@ $(document).ready(function() {
         $('#countdown-timer').html(10);
     }    
 
-    function run() { // this will countdown my number every 1s
+    function run() { 
         displayTimer();
         timer = 10;
         intervalId = setInterval(countdown, 1000);
-    }
+    };
 
-    function countdown() { // this is my timer decrement function
+    function run2() {
+        timer = 5;
+        intervalId = setInterval(countdown2, 1000);
+    };
+
+    function countdown() {
         timer--;
         $('#countdown-timer').html(timer);
         if (timer <= 0) { 
@@ -120,13 +140,27 @@ $(document).ready(function() {
         }      
     };
 
+    function countdown2() {
+        timer--;
+        if (timer <=0) {
+            stop();
+            currentQuestion++;
+            nextQuestionAnswer();
+            run();
+        }
+    }
+
     function stop() { //stop function for when timer === 0
         clearInterval(intervalId)
     };
 
-    // function restart() {
+    function stop2() {
+        clearInterval(intervalId);
+    };
 
-    // }
+    function restart() {
+
+    };
 });
 
 
@@ -134,44 +168,4 @@ $(document).ready(function() {
 
 
 
-    // user submits answers and run a function to check if answers correct. if answers match correct ++ then display score. If not, display current score.
-    // $('#submit').click(function (){
-    // score++;
-
-    // })
-
-    // var number = 10;//this is my initial timer value
-
-    // function run() { // this will countdown my number every 1s
-    //     intervalId = setInterval(countdown, 1000);
-    // }
-
-    // function countdown() { // this is my decrement function
-    //     number--;
-    //     $('#countdown-timer').html(number);
-
-    // if (number === 0) { //runs when timer === 0 ; clears forms and stops user from answering any more questions
-    //     stop();
-    //     $('#quiz').html('You ran out of time!');
-    //     $('#question').empty();
-    //     }      
-    // }
-    // run(); //runs timer as soon as page loads up
-
-    // function stop() { //stop function for when timer === 0
-    //     clearInterval(intervalId)
-    // }
-
-
-
     
-
-
-    //I need a function to disable other answer choices after one option is clicked;
-
-
-   
-   
-
-// }); 
-

@@ -27,20 +27,14 @@ var questionList = [
         correctAnswer : 'b'
     }
 ];
+console.log(questionList[0].correctAnswer)
 
 var intervalId;
 var correct = 0; //keep track of questions answered correctly;
 var incorrect = 0;
 var currentQuestion = 0; //track index of array Q's & A's
 var timer = 10;
-
-    // $('#question').text(questionList[0].questions)
-    // console.log(questionList[0].questions);
-
-    //Need code to go to next question after submit button is clicked
-    
-    // var key = event.key;
-// var isQuizDone = false;
+// var ranOutOfTime = false;
 
 
 $(document).ready(function() {
@@ -57,28 +51,22 @@ $(document).ready(function() {
     $('.button').on('click', function () {
         currentQuestion++;
         var buttonClicked = $(this).val(); 
-        for (var i = 0; i < questionList.length; i++) {
-            if (currentQuestion >= questionList.length) {
+\            if (currentQuestion >= questionList.length) {
                 $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
                 $('#quiz').empty();
                 $('#countdown-timer').empty();
                 stop(); //stop timer
                 //add restart button
-            }else if ($(this).val() === questionList[i].correctAnswer) {
+            }else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
                 correct++;
                 nextQuestionAnswer();
-            } else if ($(this).val() !== questionList[i].correctAnswer){
+            } else if (buttonClicked !== questionList[currentQuestion].correctAnswer){
                 incorrect++;
-                nextQuestionAnswer();
+                nextQuestionAnswer();   
             }
-        }
-    console.log()
+    console.log($(this).val())
     console.log('you got this many correct:' + correct)
-        // console.log($(this))
     });
-    function displayTimer() {
-        $('#countdown-timer').html(10);
-    }    
 
     function displayQuestion() {
         $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>');
@@ -93,32 +81,41 @@ $(document).ready(function() {
     };
 
     function nextQuestionAnswer() {
-        
-        timer = 10;
-        if (currentQuestion <= questionList.length) {
+
+        if (currentQuestion >= questionList.length){
+            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
+            $('#quiz').empty();
+            $('#countdown-timer').empty();
+            stop(); //stop timer
+            //add restart button 
+        }else if (currentQuestion <= questionList.length) {
+            timer = 10;
             $('#countdown-timer').html(timer);
             $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );
             $('#option1').html('<h3>' + questionList[currentQuestion].answers.a + '</h3>');
             $('#option2').html('<h3>' + questionList[currentQuestion].answers.b + '</h3>');
             $('#option3').html('<h3>' + questionList[currentQuestion].answers.c + '</h3>'); 
-        } else {
-            allQuestionsAnswered();
         }
-        
-    };
+    };        
+    
+    function displayTimer() {
+        $('#countdown-timer').html(10);
+    }    
 
     function run() { // this will countdown my number every 1s
+        displayTimer();
+        timer = 10;
         intervalId = setInterval(countdown, 1000);
     }
 
     function countdown() { // this is my timer decrement function
         timer--;
         $('#countdown-timer').html(timer);
-
-        if (timer === 0) { 
-        stop();
-        nextQuestionAnswer(); 
-        run();
+        if (timer <= 0) { 
+            stop();
+            currentQuestion++;
+            nextQuestionAnswer(); 
+            run();
         }      
     };
 

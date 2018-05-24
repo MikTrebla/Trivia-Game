@@ -49,19 +49,20 @@ $(document).ready(function() {
 
 
     $('.button').on('click', function () {
-        currentQuestion++;
         var buttonClicked = $(this).val(); 
-\            if (currentQuestion >= questionList.length) {
+            if (currentQuestion >= questionList.length) {
                 $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions
                 $('#quiz').empty();
                 $('#countdown-timer').empty();
                 stop(); //stop timer
                 //add restart button
-            }else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
+            } else if (buttonClicked === questionList[currentQuestion].correctAnswer) {
                 correct++;
+                currentQuestion++
                 nextQuestionAnswer();
             } else if (buttonClicked !== questionList[currentQuestion].correctAnswer){
                 incorrect++;
+                currentQuestion++
                 nextQuestionAnswer();   
             }
     console.log($(this).val())
@@ -88,7 +89,7 @@ $(document).ready(function() {
             $('#countdown-timer').empty();
             stop(); //stop timer
             //add restart button 
-        }else if (currentQuestion <= questionList.length) {
+        } else if (currentQuestion <= questionList.length) {
             timer = 10;
             $('#countdown-timer').html(timer);
             $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );

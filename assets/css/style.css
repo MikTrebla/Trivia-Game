@@ -62,3 +62,14 @@ body {
 .answer-box {
     text-align: center;
 }
+
+button{
+    text-decoration: none;
+    /* background-color: yellowgreen; */
+    text-align: center;
+    width : 300px;
+    height : 30px;
+    padding : none;
+    border : none 0;
+    outline:none;
+}

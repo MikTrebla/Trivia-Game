@@ -16,11 +16,21 @@ var questionList = [
             c : 'Elton\'s jokes'
         },
         correctAnswer : 'a'
+    }, 
+    {
+        questions : 'What is the room number of our classroom?',
+        answers : {
+            a: '304',
+            b: '306',
+            c: '305'
+        },
+        correctAnswer : 'b'
     }
 ];
 
 var intervalId;
-var score = 0;
+var correct = 0; //keep track of questions answered correctly;
+var incorrect = 0;
 var currentQuestion = 0; //track index of array Q's & A's
 var timer = 10;
 
@@ -30,15 +40,29 @@ var timer = 10;
     //Need code to go to next question after submit button is clicked
     
     // var key = event.key;
-
+// var isQuizDone = false;
 
 
 $(document).ready(function() {
-    // console.log(event.target);
-    // // $('#option1').click(function () {
-    // //     if (key === )
-    // });
 
+
+    $('.button').on('click', function () {
+        currentQuestion++;
+        var buttonClicked = $(this).val(); 
+        if (currentQuestion >= questionList.length) {
+            $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions out of max possible correct
+            $('#quiz').empty();
+            $('#countdown-timer').empty();
+            stop(); //stop timer
+        }else if (buttonClicked === questionList.answers) {
+            correct++;
+            nextQuestionAnswer();
+        } else {
+            incorrect++;
+            nextQuestionAnswer();
+        }
+        console.log($(this))
+        });
 
     function displayQuestion() {
         $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>');
@@ -49,26 +73,31 @@ $(document).ready(function() {
         $('#option1').html('<h3>' +questionList[currentQuestion].answers.a + '</h3>');
         $('#option2').html('<h3>' +questionList[currentQuestion].answers.b + '</h3>');
         $('#option3').html('<h3>' +questionList[currentQuestion].answers.c + '</h3>');
-        console.log(questionList[currentQuestion].answers)
+        // console.log(questionList[currentQuestion].answers)
     };
 
     function nextQuestionAnswer() {
-        currentQuestion++;
+        
         timer = 10;
-        $('#countdown-timer').html(timer);
-        $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );
-        $('#option1').html('<h3>' + questionList[currentQuestion].answers.a + '</h3>');
-        $('#option2').html('<h3>' + questionList[currentQuestion].answers.b + '</h3>');
-        $('#option3').html('<h3>' + questionList[currentQuestion].answers.c + '</h3>');
-        // setTimeout(displayQuestion, 10000);
-        // if (currentQuestion === questionList.length) {
-        //     allQuestionsAnswered();
-        // }
+        if (currentQuestion <= questionList.length) {
+            $('#countdown-timer').html(timer);
+            $('#question').html('<h1>' +questionList[currentQuestion].questions + '</h1>' );
+            $('#option1').html('<h3>' + questionList[currentQuestion].answers.a + '</h3>');
+            $('#option2').html('<h3>' + questionList[currentQuestion].answers.b + '</h3>');
+            $('#option3').html('<h3>' + questionList[currentQuestion].answers.c + '</h3>'); 
+        } else {
+            allQuestionsAnswered();
+        }
+        
     };
     
-    function allQuestionsAnswered() {
-
-    };
+    // function allQuestionsAnswered() {
+    //         $('#question').html('You answered ' + correct + ' questions out of ' + questionList.length + ' correctly.');  //display # of correctly answered questions out of max possible correct
+    //         $('#quiz').empty();
+    //         $('#countdown-timer').empty();
+    //         stop(); //stop timer
+        
+    // };
 
    
 
@@ -101,7 +130,7 @@ displayAnswerOptions(); //displays first set of answer options
 
 
 
-    // user submits answers and run a function to check if answers correct. if answers match score ++ then display score. If not, display current score.
+    // user submits answers and run a function to check if answers correct. if answers match correct ++ then display score. If not, display current score.
     // $('#submit').click(function (){
     // score++;
 

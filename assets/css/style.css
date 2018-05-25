@@ -1,13 +1,12 @@
-body {
+
+body, html {
     background-repeat: no-repeat;
-    font-family: 'Courier New', Courier, monospace
-}
-#main-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background : url('../images/7182904fc824379d27e601cc289e59bb.jpg');
-    background-size : 1360px 768px;
-    opacity : 50%;
-    padding : 200px 0px;
+    background-size : cover;
     background-repeat: no-repeat;
+    height : 100%;
+    background-position: center;
 }
 
 
@@ -18,9 +17,10 @@ body {
     font-weight: bold;
 }
 
-#rainbow, .question-box, .button{
+#rainbow, .question-box, .button, #start-button{
     font-size : 75px;
     text-align: center;
+    opacity : 1;
     /* Chrome, Safari, Opera */
   -webkit-animation: rainbow 3s infinite; 
   
@@ -33,49 +33,58 @@ body {
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes rainbow{
-	20%{color: rgb(221, 180, 165);}
-	40%{color: rgb(170, 75, 32);}
-	60%{color: palegreen;}
-	80%{color: paleturquoise;}
+	20%{color: rgb(129, 9, 9);}
+	40%{color: rgb(221, 156, 14);}
+	60%{color: rgb(130, 151, 10);}
+	80%{color: rgb(6, 18, 179);}
 	100%{color: rgb(18, 214, 198);}	
 }
 /* Internet Explorer */
 @-ms-keyframes rainbow{
-	20%{color: rgb(221, 180, 165);}
-	40%{color: rgb(170, 75, 32);}
-	60%{color: palegreen;}
-	80%{color: paleturquoise;}
-	100%{color: rgb(18, 214, 198);}	
+	20%{color: rgb(129, 9, 9);}
+	40%{color: rgb(221, 156, 14);}
+	60%{color: rgb(130, 151, 10);}
+	80%{color: rgb(6, 18, 179);}
+	100%{color: rgb(18, 214, 198);}
 }
 
 /* Standar Syntax */
 @keyframes rainbow{
-	5%{color: rgb(221, 180, 165);}
-	35%{color: rgb(170, 75, 32);}
-	65%{color: palegreen;}
-	85%{color: paleturquoise;}
+	5%{color: rgb(129, 9, 9);}
+	35%{color: rgb(221, 156, 14);}
+	65%{color: rgb(130, 151, 10);}
+	85%{color: rgb(6, 18, 179);}
 	0%{color: rgb(18, 214, 198);}	
 } 
 
 .question-box {
     text-align: center;
-    color : rgb(241, 55, 170);
+    color : black;
 }
 .answer-box {
     text-align: center;
     font-weight: bold;
 }
-
+#start-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    font-weight : bold;
+    font-size : 30px
+}
 .button{
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
     overflow: hidden;
-    outline:none;
     font-weight : bold;
 }
-
+*:focus {
+    outline: 0 !important;
+}
 .start {
     text-align: center;
 }
